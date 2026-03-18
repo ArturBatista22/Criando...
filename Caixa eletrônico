@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class CaixaEletronico {
+    private static double saldo = 0.0;
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        boolean continuar = true;
+
+        while (continuar) {
+            exibirMenu();
+            int opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    depositar();
+                    break;
+                case 2:
+                    sacar();
+                    break;
+                case 3:
+                    consultarSaldo();
+                    break;
+                case 4:
+                    System.out.println("Saindo... Obrigado por utilizar nosso caixa eletrônico!");
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+            }
+        }
+    }
+
+    private static void exibirMenu() {
+        System.out.println("\n--- CAIXA ELETRÔNICO ---");
+        System.out.println("1 - Depositar");
+        System.out.println("2 - Sacar");
+        System.out.println("3 - Consultar Saldo");
+        System.out.println("4 - Sair");
+        System.out.print("Escolha uma opção: ");
+    }
+
+    private static void depositar() {
+        System.out.print("Digite o valor para depósito: R$ ");
+        double valor = scanner.nextDouble();
+        if (valor > 0) {
+            saldo += valor;
+            System.out.printf("Depósito de R$ %.2f realizado com sucesso!\n", valor);
+        } else {
+            System.out.println("Valor de depósito inválido!");
+        }
+    }
+
+    private static void sacar() {
+        System.out.print("Digite o valor para saque: R$ ");
+        double valor = scanner.nextDouble();
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            System.out.printf("Saque de R$ %.2f realizado com sucesso!\n", valor);
+        } else if (valor > saldo) {
+            System.out.println("Saldo insuficiente!");
+        } else {
+            System.out.println("Valor de saque inválido!");
+        }
+    }
+
+    private static void consultarSaldo() {
+        System.out.printf("Seu saldo atual é: R$ %.2f\n", saldo);
+    }
+}
